@@ -260,4 +260,77 @@ ester_date_entry3.grid(row=5, column=3, padx=5, pady=5)
 # Bouton de soumission
 submit_button = ttk.Button(root, text="Soumettre", command=submit_data)
 submit_button.grid(row=6, column=0, columnspan=4, padx=5, pady=5)
-# Lancer la boucle principale
+# Lance
+#r la boucle principale
+root.mainloop()
+
+
+def create_dataframe(libor_data, ester_data):
+    libor_dates = pd.to_datetime(libor_data['dates'], format='%d/%m/%Y')
+    ester_dates = pd.to_datetime(ester_data['dates'], format='%d/%m/%Y')
+    libor_df = pd.DataFrame({'date': libor_dates, 'liborusd_ov_predict': libor_data['values']})
+    ester_df = pd.DataFrame({'date': ester_dates, 'estereonia_predict': ester_data['values']})
+    combined_df = pd.merge(libor_df, ester_df, on='date', how='outer')
+    combined_df.sort_values(by='date', inplace=True)
+    combined_df['liborusd_ov_predict'] = combined_df['liborusd_ov_predict'].ffill()
+    combined_df['estereonia_predict'] = combined_df['estereonia_predict'].ffill()
+    combined_df = combined_df[['date', 'liborusd_ov_predict', 'estereonia_predict']]
+    combined_df.set_index('date', inplace=True)
+    return combined_df
+def generate_daily_dataframe(combined_df):
+    # Generate a date range covering all dates in the combined_df
+    all_dates = pd.date_range(start=combined_df.index.min(), end=combined_df.index.max(), freq='D')
+    # Reindex the combined_df to this new daily date range
+    daily_df = combined_df.reindex(all_dates)
+    # Forward fill the missing values
+    daily_df['liborusd_ov_predict'] = daily_df['liborusd_ov_predict'].ffill()
+    daily_df['estereonia_predict'] = daily_df['estereonia_predict'].ffill()
+    return daily_df
+def submit_data():
+    libor_values = [float(liborusd_ov_entry1.get()), float(liborusd_ov_entry2.get()), float(liborusd_ov_entry3.get())]
+    libor_dates = [libor_date_entry1.get(), libor_date_entry2.get(), libor_date_entry3.get()]
+    ester_values = [float(estereonia_entry1.get()), float(estereonia_entry2.get()), float(estereonia_entry3.get())]
+    ester_dates = [ester_date_entry1.get(), ester_date_entry2.get(), ester_date_entry3.get()]
+    libor_data = {'values': libor_values, 'dates': libor_dates}
+    ester_data = {'values': ester_values, 'dates': ester_dates}
+    predict_datas = create_dataframe(libor_data, ester_data)
+    daily_predict_datas = generate_daily_dataframe(predict_datas)
+    print("DataFrame créé avec succès :\n", daily_predict_datas)
+# Créer la fenêtre principale
+root = tk.Tk()
+root.title("Entrée de données")
+liborusd_ov_label = ttk.Label(root, text="Libor USD Overnight:")
+liborusd_ov_label.grid(row=0, column=0, padx=5, pady=5)
+liborusd_ov_entry1 = ttk.Entry(root)
+liborusd_ov_entry1.grid(row=0, column=1, padx=5, pady=5)
+libor_date_label = ttk.Label(root, text="Date (jj/mm/aaaa):")
+libor_date_label.grid(row=0, column=2, padx=5, pady=5)
+libor_date_entry1 = ttk.Entry(root)
+libor_date_entry1.grid(row=0, column=3, padx=5, pady=5)
+liborusd_ov_entry2 = ttk.Entry(root)
+liborusd_ov_entry2.grid(row=1, column=1, padx=5, pady=5)
+libor_date_entry2 = ttk.Entry(root)
+libor_date_entry2.grid(row=1, column=3, padx=5, pady=5)
+liborusd_ov_entry3 = ttk.Entry(root)
+liborusd_ov_entry3.grid(row=2, column=1, padx=5, pady=5)
+libor_date_entry3 = ttk.Entry(root)
+libor_date_entry3.grid(row=2, column=3, padx=5, pady=5)
+estereonia_label = ttk.Label(root, text="ESTER (Eonia) Rate:")
+estereonia_label.grid(row=3, column=0, padx=5, pady=5)
+estereonia_entry1 = ttk.Entry(root)
+estereonia_entry1.grid(row=3, column=1, padx=5, pady=5)
+ester_date_label = ttk.Label(root, text="Date (jj/mm/aaaa):")
+ester_date_label.grid(row=3, column=2, padx=5, pady=5)
+ester_date_entry1 = ttk.Entry(root)
+ester_date_entry1.grid(row=3, column=3, padx=5, pady=5)
+estereonia_entry2 = ttk.Entry(root)
+estereonia_entry2.grid(row=4, column=1, padx=5, pady=5)
+ester_date_entry2 = ttk.Entry(root)
+ester_date_entry2.grid(row=4, column=3, padx=5, pady=5)
+estereonia_entry3 = ttk.Entry(root)
+estereonia_entry3.grid(row=5, column=1, padx=5, pady=5)
+ester_date_entry3 = ttk.Entry(root)
+ester_date_entry3.grid(row=5, column=3, padx=5, pady=5)
+submit_button = ttk.Button(root, text="Soumettre", command=submit_data)
+submit_button.grid(row=6, column=0, columnspan=4, padx=5, pady=5)
+root.mainloop()

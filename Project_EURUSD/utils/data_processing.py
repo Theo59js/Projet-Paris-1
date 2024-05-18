@@ -1,8 +1,10 @@
 import pandas as pd
 
+
 def process_data(bloom_df):
-    # Votre code pour créer les différents dataframes et les traiter
+    # Créer les différents dataframes et les traiter
     pass
+
 
 def create_predict_dataframe(libor_data, ester_data):
     libor_dates = pd.to_datetime(libor_data['dates'], format='%d/%m/%Y')
@@ -16,6 +18,7 @@ def create_predict_dataframe(libor_data, ester_data):
     combined_df = combined_df[['date', 'liborusd_ov_predict', 'estereonia_predict']]
     combined_df.set_index('date', inplace=True)
     return combined_df
+
 
 def generate_daily_dataframe(combined_df):
     all_dates = pd.date_range(start=combined_df.index.min(), end=combined_df.index.max(), freq='D')

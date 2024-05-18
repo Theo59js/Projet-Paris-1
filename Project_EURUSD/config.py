@@ -1,4 +1,4 @@
-import toml
+import config
 
 def get_config(config_path='config.toml'):
-    return toml.load(config_path)
+    return (config.load(config_path))

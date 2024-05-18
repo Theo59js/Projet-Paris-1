@@ -59,4 +59,13 @@ def launch_gui():
     ester_date_entry2.grid(row=4, column=3, padx=5, pady=5)
 
     estereonia_entry3 = ttk.Entry(root)
-    estereonia_entry3.grid(row
+    estereonia_entry3.grid(row=5, column=1, padx=5, pady=5)
+    ester_date_entry3 = ttk.Entry(root)
+    ester_date_entry3.grid(row=5, column=3, padx=5, pady=5)
+
+    submit_button = ttk.Button(root, text="Soumettre", command=submit_data)
+    submit_button.grid(row=6, column=0, columnspan=4, padx=5, pady=5)
+
+    root.mainloop()
+
+launch_gui()

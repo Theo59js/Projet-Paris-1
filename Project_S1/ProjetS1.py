@@ -206,7 +206,7 @@ plt.ylabel('Prédictions EURUSD')
 plt.legend()
 
 # Exporter le graphique en PDF
-pdf_path = 'Prédictions_EURUSD.pdf'  # Assurez-vous de définir le chemin de sortie correctement
+pdf_path = '../Prédictions_EURUSD.pdf'  # Assurez-vous de définir le chemin de sortie correctement
 plt.savefig(pdf_path, format='pdf')
 
 # Afficher le graphique

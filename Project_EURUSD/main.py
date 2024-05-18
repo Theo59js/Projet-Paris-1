@@ -1,12 +1,11 @@
-import sys
-import pandas as pd
 import statsmodels.api as sm
+
 from config import get_config
 from data.data_loader import load_data
-from models.regression_model import train_model, make_predictions
-from utils.data_processing import process_data, create_predict_dataframe
-from plots.plot_results import plot_predictions
 from gui.user_interface import launch_gui
+from models.regression_model import train_model, make_predictions
+from plots.plot_results import plot_predictions
+from utils.data_processing import process_data
 
 
 def main():

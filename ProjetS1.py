@@ -1,14 +1,11 @@
 
-import pandas as pd
-import seaborn as sns
 import sys
-import matplotlib.pyplot as plt
-import statsmodels.api as sm
-import numpy as np
 import tkinter as tk
 from tkinter import ttk
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LinearRegression
+
+import matplotlib.pyplot as plt
+import pandas as pd
+import statsmodels.api as sm
 
 # Définir les chemins des fichiers input et output
 input_path = 'C:/Users/theo5/OneDrive/Bureau/Bloomberg_extract.xlsx'
@@ -68,7 +65,7 @@ index = ester[ester[column_date] == '2021-12-31'].index.tolist()
 if ester.loc[index, column_ask].equals(eonia.loc[index, column_ask]):
     print("Correspondance OK")
 else:
-    sys.exit
+    sys.exit()
 
 # Concaténer 'ester' et 'eonia'
 estereonia = pd.concat([ester, eonia], ignore_index=True)
@@ -113,13 +110,6 @@ var_ex = sm.add_constant(var_ex)
 # Faire la régression et l'imprimer
 regeurusd = sm.OLS(var_dep, var_ex).fit()
 print(regeurusd.summary())
-
-# Créer un DataFrame de nouvelles données, selon notre scénario Fed et BCE
-#predict_datas = pd.DataFrame({'liborusd_ov_predict': [5.65]*60 + [5.15]*90 + [4.90]*90,
-
-#    'estereonia_predict': [3.90]*120 + [3.50]*120})
-# On contrôle que notre dataframe s'est constitué correctement
-#print(predict_datas)
 
 # Déclarer predict_datas comme une variable globale
 predict_datas = None
@@ -204,7 +194,8 @@ print(predictions_df)
 
 # Faire un graphique pour afficher nos résultats
 plt.figure(figsize=(10, 6))
-plt.plot(predictions_df.index, predictions_df['predictions'], label='Prédictions', marker='o', linestyle='-', color='blue')
+plt.plot(predictions_df.index, predictions_df['predictions'], label='Prédictions',
+         marker='o', linestyle='-', color='blue')
 
 # Ajouter des titres et des étiquettes
 plt.title('Prédictions EURUSD selon notre scénario')
@@ -220,4 +211,3 @@ plt.savefig(pdf_path, format='pdf')
 
 # Afficher le graphique
 plt.show()
-

@@ -21,12 +21,12 @@ def process_data(bloom_df):
         eurusd.columns = columns
 
         # Vérifier la correspondance entre ester et eonia
-        index = ester[ester['Date'] == '2021-12-31'].index.tolist()
-        if ester.loc[index, 'Ask'].equals(eonia.loc[index, 'Ask']):
-            print("Correspondance OK")
-        else:
-            print("Pas de correspondance")
-            return None
+        #index = ester[ester['Date'] == '2021-12-31'].index.tolist()
+        #if ester.loc[index, 'Ask'].equals(eonia.loc[index, 'Ask']):
+            #print("Correspondance OK")
+        #else:
+            #print("Pas de correspondance")
+           #return None
 
         # Concaténer 'ester' et 'eonia'
         estereonia = pd.concat([ester, eonia], ignore_index=True)

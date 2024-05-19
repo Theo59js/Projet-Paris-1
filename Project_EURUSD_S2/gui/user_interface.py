@@ -1,8 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
-import pandas as pd
-from utils.data_processing import create_predict_dataframe, generate_daily_dataframe
 
+from Project_EURUSD_S2.utils.data_processing import create_predict_dataframe, generate_daily_dataframe
 
 def launch_gui():
     predict_datas = None
@@ -19,6 +18,7 @@ def launch_gui():
         user_predict_datas = create_predict_dataframe(libor_data, ester_data)
         predict_datas = generate_daily_dataframe(user_predict_datas)
         print("DataFrame créé avec succès :\n", predict_datas)
+        return predict_datas
 
     root = tk.Tk()
     root.title("Entrée de données")
@@ -68,4 +68,4 @@ def launch_gui():
 
     root.mainloop()
 
-launch_gui()
+    return predict_datas

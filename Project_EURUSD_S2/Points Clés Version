@@ -5,4 +5,4 @@ Version 2.0 :
   La version 2.0 est désormais un "vrai" programme python découpé entre la partie data, gui, modèles de prédiction, graphique, et process de data. Un fichier config Toml vient également faciliter la configuration du programme.
   Le projet demande désormais à l'utilisateur de taper ses hypothèses de taux sans risque EUR et USD dans une fenêtre, créant ensuite un dataframe qui sert aux prédictions. Les prédictions sont donc adaptées aux hypothèses de l'utilisateur.
 Prospectives :
-  Avec un véritable accès à Bloomberg ou à une autre fournisseur de données, une API rendrait le programme encore plus puissant, ils mettraient à jour les prédiction à chaque changement d'hypothèse et de cotation du marché.
+  Avec un véritable accès à Bloomberg ou à une autre fournisseur de données, une API rendrait le programme encore plus puissant, il mettrait à jour les prédiction à chaque changement d'hypothèse et de cotation du marché.
